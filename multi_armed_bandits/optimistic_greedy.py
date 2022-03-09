@@ -13,11 +13,12 @@ def select_action(rewards, epsilon):
 steps = 1000
 k = 10
 epsilon = 0
+initial_values = 5
 
 # Optimistic-greedy algorithm
 # Only differences to epsilon-greedy are the initial values of Q(a) and an epsilon of 0.
 mab = bandit.MultiArmedBandit(k)
-rewards = np.full(k, 5, dtype=np.float32)
+rewards = np.full(k, initial_values, dtype=np.float32)
 taken = np.zeros(k, dtype=np.int32)
 
 for _ in range(steps):
