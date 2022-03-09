@@ -5,7 +5,7 @@ class Bandit:
     with random mean and unit variance. '''
     
     def __init__(self):
-        self.mean = 5 * np.random.rand()    # from 0 to 5
+        self.mean = np.random.randn()   # drawn from a standard normal distribution
         self.variance = 1
         
     def get_reward(self):
