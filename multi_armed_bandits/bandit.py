@@ -5,11 +5,11 @@ class Bandit:
     with random mean and unit variance. '''
     
     def __init__(self):
-        self.mean = np.random.randn()   # drawn from a standard normal distribution
-        self.variance = 1
+        self.mu = np.random.randn()   # drawn from a standard normal distribution
+        self.sigma = 1
         
     def get_reward(self):
-        return self.variance * np.random.randn() + self.mean
+        return np.random.normal(self.mu, self.sigma)
 
 class MultiArmedBandit:
     ''' A k-armed slot machine where every lever gives a different reward. '''    
@@ -20,7 +20,7 @@ class MultiArmedBandit:
     
     def show_bandits(self):
         for i, b in enumerate(self.bandits):
-            print("[{}] Mean: {:.4f}, Variance: {:.4f}".format(i, b.mean, b.variance))
+            print("[{}] Mean: {:.4f}, Variance: {:.4f}".format(i, b.mu, b.sigma))
 
     def get_reward(self, action):
         return self.bandits[action].get_reward()
