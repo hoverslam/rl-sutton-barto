@@ -1,6 +1,7 @@
 import numpy as np
 import bandit
 
+# Epsilon-greedy action selection
 def select_action(rewards, epsilon):
     k = len(rewards)
     if np.random.rand() < epsilon:
@@ -14,7 +15,7 @@ steps = 1000
 k = 10
 epsilon = 0.1
 
-# Epsilon-greedy algorithm
+# Training
 mab = bandit.MultiArmedBandit(k)
 rewards = np.zeros(k)
 taken = np.zeros(k, dtype=np.int32)

@@ -1,6 +1,8 @@
 import numpy as np
 import bandit
 
+# Optimistic-greedy action selection
+# Only differences to epsilon-greedy are the initial values of Q(a) and an epsilon of 0.
 def select_action(rewards, epsilon):
     k = len(rewards)
     if np.random.rand() < epsilon:
@@ -15,8 +17,7 @@ k = 10
 epsilon = 0
 initial_values = 5
 
-# Optimistic-greedy algorithm
-# Only differences to epsilon-greedy are the initial values of Q(a) and an epsilon of 0.
+# Training
 mab = bandit.MultiArmedBandit(k)
 rewards = np.full(k, initial_values, dtype=np.float32)
 taken = np.zeros(k, dtype=np.int32)
