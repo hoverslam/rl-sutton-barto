@@ -1,4 +1,4 @@
-# Improving a random policy
+# Evaluate a stochastic policy
 
 import numpy as np
 import gridworlds
