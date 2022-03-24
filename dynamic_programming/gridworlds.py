@@ -9,10 +9,19 @@ class Grid:
         self.size = None
         self.P = None
         
-    def print_values(self, values, digits=1):
+    def print_values(self, values):
         values = np.reshape(values, self.size)
-        values = np.round(values, digits)
-        print(values)  
+        values = np.round(values, 1)
+        print(values)
+        
+    def print_policy(self, pi):
+        pi = np.reshape(pi, self.size)
+        pi = pi.astype(str)
+        pi[pi=="0"] = "U" 
+        pi[pi=="1"] = "R" 
+        pi[pi=="2"] = "D" 
+        pi[pi=="3"] = "L" 
+        print(pi) 
 
 class Grid_4x4(Grid):
     """ Gridworld 4x4:
