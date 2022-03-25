@@ -6,8 +6,16 @@ import numpy as np
 
 class Grid:
     def __init__(self):
-        self.size = None
-        self.P = None
+        pass
+        
+    def step(self, state, action):     
+        return self.P[state][action]
+        
+    def action_space(self):
+        return tuple(self.P[0].keys())
+    
+    def state_space(self):
+        return tuple(self.P.keys())
         
     def print_values(self, values):
         values = np.reshape(values, self.size)
@@ -15,8 +23,14 @@ class Grid:
         print(values)
         
     def print_policy(self, pi):
-        pi = np.reshape(pi, self.size)
+        pi_vector = np.zeros(np.shape(pi)[0], dtype=np.int32)
+        for i, action in enumerate(pi):
+            pi_vector[i] = np.argmax(action)
+        if self.terminal_states is not None:
+            for i in self.terminal_states: pi_vector[i] = -1
+        pi = np.reshape(pi_vector, self.size)
         pi = pi.astype(str)
+        pi[pi=="-1"] = "X" 
         pi[pi=="0"] = "U" 
         pi[pi=="1"] = "R" 
         pi[pi=="2"] = "D" 
@@ -34,6 +48,7 @@ class Grid_4x4(Grid):
     def __init__(self):
         super().__init__()
         self.size = (4, 4)
+        self.terminal_states = [0, 15]
         self.P = {
             0: {
                 0: [(1.0, 0, 0.0, True)],
@@ -144,6 +159,7 @@ class Grid_5x5_Sutton(Grid):
     def __init__(self):
         super().__init__()
         self.size = (5, 5)
+        self.terminal_states = [1, 3]
         self.P = {
             0: {
                 0: [(1.0, 0, -1.0, False)],
@@ -294,5 +310,5 @@ class Grid_5x5_Sutton(Grid):
                 1: [(1.0, 24, -1.0, False)],
                 2: [(1.0, 24, -1.0, False)],
                 3: [(1.0, 23, 0.0, False)]
-            },            
-        }          
+            },
+        }
