@@ -18,7 +18,7 @@ def policy_evaluation(pi, env, gamma=1, theta=10e-5):
         
     return V        
 
-env = gridworlds.Grid_4x4()
+env = gridworlds.Grid_5x5_Sutton()
 pi = np.ones([len(env.state_space()), len(env.action_space())]) / len(env.action_space())   # equiprobable random policy
-V = policy_evaluation(pi, env)
+V = policy_evaluation(pi, env, 0.9)
 env.print_values(V)
