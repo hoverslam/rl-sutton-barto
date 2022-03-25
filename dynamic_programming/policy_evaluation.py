@@ -5,6 +5,7 @@ import gridworlds
 
 def policy_evaluation(pi, env, gamma=1, theta=10e-5):
     prev_V = np.zeros(len(env.state_space()), dtype=np.float64)
+    i = 0
     while True:
         V = np.zeros(len(env.state_space()), dtype=np.float64)
         for s in range(len(env.state_space())):         
@@ -15,10 +16,12 @@ def policy_evaluation(pi, env, gamma=1, theta=10e-5):
             break
         else:      
             prev_V = V.copy()
+            i += 1
         
-    return V        
+    return V, i     
 
 env = gridworlds.Grid_5x5_Sutton()
 pi = np.ones([len(env.state_space()), len(env.action_space())]) / len(env.action_space())   # equiprobable random policy
-V = policy_evaluation(pi, env, 0.9)
+V, i = policy_evaluation(pi, env, 0.9)
+print("Policy evaluated in {} iterations:".format(i))
 env.print_values(V)
