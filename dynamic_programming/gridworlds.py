@@ -5,7 +5,6 @@
 import numpy as np
 
 class Grid:
-<<<<<<< HEAD
     def __init__(self, max_steps):
         self.max_steps = max_steps
         self.steps = 0
@@ -19,13 +18,6 @@ class Grid:
         
     def reset(self):
         self.steps = 1
-=======
-    def __init__(self):
-        pass
-        
-    def step(self, state, action):     
-        return self.P[state][action]
->>>>>>> c297571431aad62f2ad23773f306fa4360f35590
         
     def action_space(self):
         return tuple(self.P[0].keys())
@@ -175,7 +167,7 @@ class Grid_5x5_Sutton(Grid):
     def __init__(self, max_steps=1000):
         super().__init__(max_steps)
         self.size = (5, 5)
-        self.terminal_states = [1, 3]
+        self.terminal_states = None
         self.P = {
             0: {
                 0: [(1.0, 0, -1.0, False)],

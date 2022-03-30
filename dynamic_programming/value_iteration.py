@@ -21,7 +21,8 @@ def value_iteration(env, gamma=1.0, theta=10e-5):
                     Q[s][a] += prob * (reward + gamma * V[next_state] * (not done))                    
         if np.max(np.abs(V - np.max(Q, axis=1))) < theta:
             break
-    
+        
+        env.reset()
         V = np.max(Q, axis=1)
         i += 1
         

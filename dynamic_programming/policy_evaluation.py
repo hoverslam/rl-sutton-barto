@@ -14,9 +14,10 @@ def policy_evaluation(pi, env, gamma=1, theta=10e-5):
                     V[s] += prob_a * prob_s * (reward + gamma * prev_V[next_state] * (not done))                    
         if np.max(np.abs(prev_V - V)) < theta:
             break
-        else:      
-            prev_V = V.copy()
-            i += 1
+        
+        env.reset()      
+        prev_V = V.copy()
+        i += 1
         
     return V, i     
 
