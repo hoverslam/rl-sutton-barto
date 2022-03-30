@@ -30,7 +30,7 @@ def value_iteration(env, gamma=1.0, theta=10e-5):
             
     return V, pi, i
 
-env = gridworlds.Grid_5x5_Sutton()
+env = gridworlds.Grid_Maze()
 V, pi, i = value_iteration(env, 0.9)
 print("Optimal policy found in {} iterations:".format(i))
 env.print_policy(pi) 
