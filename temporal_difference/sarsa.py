@@ -24,7 +24,7 @@ def sarsa(env, gamma=1.0, alpha=0.1, epsilon=0.1, episodes=10000):
             next_state, reward, done = env.step(action)
             next_action = epsilon_greedy(next_state, Q, epsilon)
             
-            # Update Q values
+            # Update Q values using the action taken in the next state
             td_target = reward + gamma * Q[next_state[0]][next_state[1]][next_action] * (not done)
             td_error = td_target - Q[state[0]][state[1]][action]
             Q[state[0]][state[1]][action] += alpha * td_error
