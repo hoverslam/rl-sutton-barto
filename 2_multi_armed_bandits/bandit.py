@@ -22,5 +22,12 @@ class MultiArmedBandit:
         for i, b in enumerate(self.bandits):
             print("[{}] Mean: {:.4f}, Variance: {:.4f}".format(i, b.mu, b.sigma))
 
-    def get_reward(self, action):
+    def pull_lever(self, action):
         return self.bandits[action].get_reward()
+    
+    def best_lever(self):
+        reward = np.zeros(len(self.bandits))
+        for i, b in enumerate(self.bandits):
+            reward[i] = b.mu
+            
+        return np.argmax(reward)
