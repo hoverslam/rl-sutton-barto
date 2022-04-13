@@ -9,7 +9,8 @@ class Grid:
         self.size = None
         
     def step(self, state, action):
-        return self.P[state][action]
+        _, next_state, reward, done = self.P[self.state][action][0]
+        return (next_state, reward, done)
 
     def action_space(self):
         return tuple(self.P[0].keys())
