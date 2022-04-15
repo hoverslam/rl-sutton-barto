@@ -9,7 +9,11 @@ class Grid:
         self.size = None
         
     def step(self, state, action):
-        _, next_state, reward, done = self.P[self.state][action][0]
+        prob = []
+        for p, _, _, _ in self.P[state][action]:
+            prob.append(p)
+        transition_index = np.random.choice(len(self.P[state][action]), p=prob)    # choose a transition according to probabilities           
+        _, next_state, reward, done = self.P[state][action][transition_index]
         return (next_state, reward, done)
 
     def action_space(self):
@@ -291,3 +295,7 @@ class Grid_5x5_Sutton(Grid):
                 3: [(1.0, 23, 0.0, False)]
             },
         }
+        
+        
+env = Grid_4x4()
+print(env.step(1, 2))
