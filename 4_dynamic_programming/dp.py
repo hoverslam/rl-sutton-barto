@@ -61,11 +61,3 @@ def policy_iteration(env, gamma=1.0, theta=1e-10):
 def value_iteration(env, gamma=1.0, theta=1e-10):
     # [TODO]
     pass
-
-
-import sys 
-sys.path.append('./environments/')
-import gridworlds
-
-env = gridworlds.Grid_4x4_Sutton()
-print(policy_iteration(env))
