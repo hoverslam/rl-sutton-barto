@@ -22,8 +22,8 @@ class Grid:
     def state_space(self):
         return tuple(self.P.keys())
     
-class Grid_4x4(Grid):
-    """ Gridworld 4x4:
+class Grid_4x4_Sutton(Grid):
+    """ Gridworld 4x4 Sutton: Example 4.1 from the book :
     States: 14 non-terminal, 2 terminal
     Actions: up (0), right (1), down (2), left (3) 
     Reward: -1 for every move
