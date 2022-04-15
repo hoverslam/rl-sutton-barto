@@ -295,7 +295,3 @@ class Grid_5x5_Sutton(Grid):
                 3: [(1.0, 23, 0.0, False)]
             },
         }
-        
-        
-env = Grid_4x4()
-print(env.step(1, 2))
