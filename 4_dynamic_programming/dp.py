@@ -49,7 +49,7 @@ def policy_iteration(env, gamma=1.0, theta=1e-10):
     
     while True:
         old_pi = pi
-        V = policy_evaluation(pi, env, gamma)[0]
+        V = policy_evaluation(pi, env, gamma, theta)[0]
         pi = policy_improvement(V, env, gamma)
         
         if (old_pi == pi).all():
