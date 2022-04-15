@@ -1,7 +1,7 @@
 import numpy as np
 
 # Policy evaluation: Sutton & Barto (2018), p. 75
-def policy_evaluation(pi, env, gamma=1, theta=10e-10):
+def policy_evaluation(pi, env, gamma=1, theta=1e-10):
     state_space_n = len(env.state_space())
     prev_V = np.zeros(state_space_n, dtype=np.float32)
     
