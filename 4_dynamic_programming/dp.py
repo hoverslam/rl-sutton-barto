@@ -55,8 +55,31 @@ def policy_iteration(env, gamma=1.0, theta=1e-10):
         if (old_pi == pi).all():
             break
         
-    return pi, V
+    return (pi, V)
 
-# Value iteration
+# Value iteration: Sutton & Barto (2018), p. 83
 def value_iteration(env, gamma=1.0, theta=1e-10):
-    return pi, V
+    state_space_n = len(env.state_space())
+    action_space_n = len(env.action_space())
+    V = np.zeros(state_space_n, dtype=np.float64)
+
+    while True:
+        # Calculate action-value function for all states 
+        Q = np.zeros((state_space_n, action_space_n), dtype=np.float64)
+        for state in range(state_space_n):
+            for action in range(action_space_n):
+                for prob, next_state, reward, done in env.P[state][action]:
+                    Q[state][action] += prob * (reward + gamma * V[next_state] * (not done))
+        
+        if np.max(np.abs(V - np.max(Q, axis=1))) < theta:
+            break
+        
+        V = np.max(Q, axis=1)   
+
+    # Extract optimal policy
+    pi = np.zeros((state_space_n, action_space_n), dtype=np.int32)
+    for s in range(len(Q)):
+        best_action = np.argmax(Q[s])
+        pi[s][best_action] = 1
+    
+    return (pi, V)
