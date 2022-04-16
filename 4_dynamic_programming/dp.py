@@ -22,7 +22,7 @@ def policy_evaluation(pi, env, gamma=1.0, theta=1e-10):
     return (V, i)
 
 
-# Policy iteration
+# Policy iteration: Sutton & Barto (2018), p. 80
 def policy_improvement(V, env, gamma=1.0):
     state_space_n = len(env.state_space())
     action_space_n = len(env.action_space())
@@ -55,9 +55,8 @@ def policy_iteration(env, gamma=1.0, theta=1e-10):
         if (old_pi == pi).all():
             break
         
-    return pi
+    return pi, V
 
 # Value iteration
 def value_iteration(env, gamma=1.0, theta=1e-10):
-    # [TODO]
-    pass
+    return pi, V
