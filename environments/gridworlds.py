@@ -8,14 +8,28 @@ class Grid:
     def __init__(self):
         self.P = None
         self.size = None
+        self._initial_state = 0
+        self._max_steps = 200 
         
-    def step(self, state, action):
-        prob = []
-        for p, _, _, _ in self.P[state][action]:
-            prob.append(p)
-        transition = np.random.choice(len(self.P[state][action]), p=prob)    # choose a transition according to probabilities           
-        _, next_state, reward, done = self.P[state][action][transition]
-        return (next_state, reward, done)
+    def step(self, action):
+        if self._steps < self._max_steps:
+            prob = []
+            for p, _, _, _ in self.P[self._state][action]:
+                prob.append(p)
+            transition = np.random.choice(len(self.P[self._state][action]), p=prob)    # choose a transition according to probabilities           
+            _, next_state, reward, done = self.P[self._state][action][transition]
+            self._state = next_state
+            self._steps += 1
+            return (next_state, reward, done)
+        else:
+            self._state = self._initial_state
+            self._steps = 0
+            return (self._initial_state, 0.0, True)
+
+    def reset(self):
+        self._state = self._initial_state
+        self._steps = 0
+        return (self._initial_state, 0.0, False)
 
     def action_space(self):
         return tuple(self.P[0].keys())
@@ -394,6 +408,7 @@ class Cliff_Walking (Grid):
     def __init__(self):
         super().__init__()
         self.size = (4, 12)
+        self._initial_state = 36
         self.P = {
             0: {
                 0: [(1.0, 0, -1.0, False)],
@@ -614,7 +629,7 @@ class Cliff_Walking (Grid):
             36: {
                 0: [(1.0, 24, -1.0, False)],
                 1: [(1.0, 36, -100.0, False)],
-                2: [(1.0, 36, -1.0, True)],
+                2: [(1.0, 36, -1.0, False)],
                 3: [(1.0, 36, -1.0, False)]
             },
             37: {
