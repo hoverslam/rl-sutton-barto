@@ -9,7 +9,7 @@ class Grid:
     def __init__(self):
         self.P = None
         self.size = None
-        self.max_steps = 200
+        self.max_steps = 1000
         self._special_states = {"S": [0], "G": [], "H": [], "W": []}    # (Start, Goals, Holes, Walls) 
         self._initial_state = self._special_states["S"][0]               
         
