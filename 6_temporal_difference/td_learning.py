@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 
+
 # Policy
 def epsilon_greedy(Q, state, epsilon):
     if np.random.rand() < epsilon:
@@ -8,7 +9,8 @@ def epsilon_greedy(Q, state, epsilon):
     else:
         return np.argmax(Q[state])
 
-# SARSA with GLIE: Introduction to RL with David Silver (2015), Lecture 5
+
+# SARSA with GLIE: Sutton & Barto (2018), p. 130
 def sarsa(env, gamma=1.0, alpha=0.1, episodes=10000):
     nS = len(env.state_space())
     nA = len(env.action_space())
@@ -34,6 +36,11 @@ def sarsa(env, gamma=1.0, alpha=0.1, episodes=10000):
             
     return (pi, Q)
 
+
+# Expected SARS: Sutton & Barto (2018), p. 133
+# [TODO]
+
+
 # Q-Learning: Sutton & Barto (2018), p. 131
 def q_learning(env, gamma=1.0, epsilon = 0.1, alpha=0.1, episodes=10000):
     nS = len(env.state_space())
@@ -58,3 +65,11 @@ def q_learning(env, gamma=1.0, epsilon = 0.1, alpha=0.1, episodes=10000):
     pi = np.argmax(Q, axis=1)
             
     return (pi, Q)
+
+
+# Double Q-learning: Sutton & Barto (2018), p. 136
+# [TODO]
+
+
+# Speedy Q-learning: Ghavamzadeh, et. al (2011) Speedy Q-learning
+# [TODO]
