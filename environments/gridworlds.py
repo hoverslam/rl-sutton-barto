@@ -3,13 +3,15 @@
 # possible transitions stored in tuples (probability of transition, next state, reward, terminal flag).
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Grid:
     def __init__(self):
         self.P = None
         self.size = None
-        self._initial_state = 0
-        self._max_steps = 200 
+        self._special_states = {"S": [0], "G": [], "H": [], "W": []}    # (Start, Goals, Holes, Walls) 
+        self._initial_state = self._special_states["S"][0]
+        self._max_steps = 200        
         
     def step(self, action):
         if self._steps < self._max_steps:
@@ -37,6 +39,9 @@ class Grid:
     def state_space(self):
         return tuple(self.P.keys())
     
+    def plot(self, values=None):
+        pass
+    
 class Grid_4x4_Sutton(Grid):
     """ Gridworld 4x4 Sutton: Example 4.1 from Sutton & Barto (2018)
     States: 14 non-terminal, 2 terminal
@@ -48,6 +53,7 @@ class Grid_4x4_Sutton(Grid):
     def __init__(self):
         super().__init__()
         self.size = (4, 4)
+        self._special_states = {"S": [0], "G": [0, 15], "H": [], "W": []}
         self.P = {
             0: {
                 0: [(1.0, 0, 0.0, True)],
@@ -311,7 +317,7 @@ class Grid_5x5_Sutton(Grid):
             },
         }      
        
-class Grid_3x4_RNG (Grid):
+class Grid_3x4_RNG(Grid):
     """ Gridworld 3x4 RNG: Russell, Norvig (2020) Artificial Intelligence: A Modern Approach, see Figure 23.1
     States: 9 non-terminal, 2 terminal, 1 wall
     Actions: up (0), right (1), down (2), left (3) 
@@ -322,6 +328,7 @@ class Grid_3x4_RNG (Grid):
     def __init__(self):
         super().__init__()
         self.size = (3, 4)
+        self._special_states = {"S": [0], "G": [3], "H": [7], "W": [5]}
         self.P = {
             0: {
                 0: [(0.9, 0, -0.04, False), (0.1, 1, -0.04, False)],
@@ -397,9 +404,9 @@ class Grid_3x4_RNG (Grid):
             }
         }
         
-class Cliff_Walking (Grid):
+class Cliff_Walking(Grid):
     """ Cliff Walking: Example 6.6 from Sutton & Barto (2018) 
-    States: 37 non-terminal, 11 terminal (1 goal + 10 cliffs)
+    States: 47 non-terminal, 1 terminal
     Actions: up (0), right (1), down (2), left (3) 
     Reward: -1 for every move, -100 falling down the cliff
     Actions that would take the agent off the grid do not change the state.
@@ -408,7 +415,7 @@ class Cliff_Walking (Grid):
     def __init__(self):
         super().__init__()
         self.size = (4, 12)
-        self._initial_state = 36
+        self._special_states = {"S": [36], "G": [47], "H": [37, 38, 39, 40, 41, 42, 43, 44, 45, 46], "W": []}
         self.P = {
             0: {
                 0: [(1.0, 0, -1.0, False)],
@@ -699,3 +706,5 @@ class Cliff_Walking (Grid):
                 3: [(1.0, 47, 0.0, True)]
             }
         }
+        
+        
