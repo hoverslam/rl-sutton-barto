@@ -9,12 +9,12 @@ class Grid:
     def __init__(self):
         self.P = None
         self.size = None
+        self.max_steps = 200
         self._special_states = {"S": [0], "G": [], "H": [], "W": []}    # (Start, Goals, Holes, Walls) 
-        self._initial_state = self._special_states["S"][0]
-        self._max_steps = 200        
+        self._initial_state = self._special_states["S"][0]               
         
     def step(self, action):
-        if self._steps < self._max_steps:
+        if self._steps < self.max_steps:
             prob = []
             for p, _, _, _ in self.P[self._state][action]:
                 prob.append(p)
@@ -29,6 +29,7 @@ class Grid:
             return (self._initial_state, 0.0, True)
 
     def reset(self):
+        self._initial_state = self._special_states["S"][0]
         self._state = self._initial_state
         self._steps = 0
         return (self._initial_state, 0.0, False)
