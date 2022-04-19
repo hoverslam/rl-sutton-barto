@@ -100,18 +100,17 @@ def q_learning(env, gamma=1.0, epsilon = 0.1, alpha=0.1, episodes=10000):
     
     for e in tqdm(range(episodes)):        
         state, reward, done = env.reset()
-        action = epsilon_greedy(Q, state, epsilon)        
                 
         while not done:
+            action = epsilon_greedy(Q, state, epsilon)  
             next_state, reward, done = env.step(action)
-            next_action = epsilon_greedy(Q, state, epsilon)
             
             # Update Q values using the action with the highest value in the next state
             td_target = reward + gamma * np.max(Q[next_state]) * (not done)
             td_error = td_target - Q[state][action]
             Q[state][action] += alpha * td_error
 
-            state, action = next_state, next_action
+            state = next_state
             
     pi = np.argmax(Q, axis=1)
             
@@ -152,13 +151,3 @@ def double_q_learning(env, gamma=1.0, epsilon = 0.1, alpha=0.1, episodes=10000):
 
 # Speedy Q-learning: Ghavamzadeh, et. al (2011) Speedy Q-learning
 # [TODO]
-
-
-# DEBUGGING
-import sys 
-sys.path.append('./environments/')
-import gridworlds
-
-env = gridworlds.Cliff_Walking()
-pi, Q = double_q_learning(env)
-print(np.reshape(pi, env.size))
