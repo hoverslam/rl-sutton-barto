@@ -3,7 +3,6 @@
 # possible transitions stored in tuples (probability of transition, next state, reward, terminal flag).
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 class Grid:
     def __init__(self):
